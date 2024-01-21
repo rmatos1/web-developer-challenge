@@ -10,3 +10,8 @@ export const FeedImg = styled.img`
     ${imageBase};
     object-fit: cover;
 `
+
+export const Icon = styled.img`
+    width: auto;
+    height: 20px;
+`

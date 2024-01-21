@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import './App.css';
 import { TopBar, FeedForm, Feeds } from './components';
 import { FeedProvider } from './context';
 

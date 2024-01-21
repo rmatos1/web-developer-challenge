@@ -1,7 +1,8 @@
-import { FeedsContainer, FeedSectionTitle, EmptyFeeds, FeedsList, FeedCard, FeedTextContainer, FeedAuthorLabel, FeedAuthorName, DeleteButton } from "./feeds.styles";
-import { StyledText, FeedImg } from "../styledComponents";
+import { FeedsContainer, FeedSectionTitle, EmptyFeeds, FeedsList, FeedCard, FeedTextContainer, FeedAuthorLabel, FeedAuthorName, DeleteFeed } from "./feeds.styles";
+import { StyledText, FeedImg, Icon } from "../styledComponents";
 import { useFeedsHelper } from "./useFeedsListHelper.hook";
 import { IFeed } from "../../types";
+import { icons } from "../../assets";
 
 export const Feeds = () => {
 
@@ -19,7 +20,9 @@ export const Feeds = () => {
                             feeds.map((feed: IFeed) => (
                                 <FeedCard key={feed.id} data-testid="feed-card">
 
-                                    <DeleteButton onClick={() => onDeleteFeed(feed.id || "")} data-testid="delete-button">x</DeleteButton>
+                                    <DeleteFeed onClick={() => onDeleteFeed(feed.id || "")} data-testid="delete-feed">
+                                        <Icon alt="delete-feed" src={icons.deleteFeed} />
+                                    </DeleteFeed>
 
                                     <FeedImg  alt="" src={feed.img} />
 

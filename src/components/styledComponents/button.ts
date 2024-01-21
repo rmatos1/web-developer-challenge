@@ -56,3 +56,15 @@ export const StyledLink = styled.a`
     opacity: .7;
   }
 `;
+
+export const DeleteButton = css`
+  position: absolute;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover {
+      opacity: .7;
+  }
+`

@@ -1,5 +1,5 @@
-import { StyledFileInput, ImgUploadedContainer, InputImgContainer, EmptyImgIcon, DeleteButton, DeleteIcon } from "./inputImg.styles";
-import { FeedImg } from "../styledComponents";
+import { StyledFileInput, ImgUploadedContainer, InputImgContainer, EmptyImgIcon, RemoveImg } from "./inputImg.styles";
+import { FeedImg, Icon } from "../styledComponents";
 import { icons } from "../../assets";
 import { useInputImgHelper, IInputImg } from "./useInputImgHelper";
 
@@ -19,9 +19,9 @@ export const InputImg = ({ file, onFileChange, onFileRemove }: IInputImg) => {
                             src={file}
                         />
                     
-                        <DeleteButton onClick={onFileRemove} data-testid="delete-button">
-                            <DeleteIcon alt="delete-icon" src={icons.deleteIcon} />
-                        </DeleteButton>
+                        <RemoveImg onClick={onFileRemove} data-testid="remove-img">
+                            <Icon alt="remove-img" src={icons.removeImg} />
+                        </RemoveImg>
 
                     </ImgUploadedContainer>
                 ) : (

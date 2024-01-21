@@ -39,9 +39,9 @@ describe('<Feeds />', () => {
   test('should call setFeeds on click', () => {
     render(setup({ ...defaultFeedsContextValue, feeds: [feedTest] }));
 
-    const deleteButton = screen.getAllByTestId('delete-button');
+    const deleteFeed = screen.getAllByTestId('delete-feed');
 
-    fireEvent.click(deleteButton[0]);
+    fireEvent.click(deleteFeed[0]);
 
     expect(defaultFeedsContextValue.setFeeds).toHaveBeenCalled()
   });

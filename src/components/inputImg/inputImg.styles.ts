@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { imageBase } from "../styledComponents";
+import { imageBase, DeleteButton } from "../styledComponents";
 
 export const StyledFileInput = styled.input`
     display: none;
@@ -13,22 +13,9 @@ export const ImgUploadedContainer = styled.div`
     align-items: center;
 `
 
-export const DeleteButton = styled.button`
-    position: absolute;
-    border: 0;
-    background: transparent;
+export const RemoveImg = styled.button`
+    ${DeleteButton};
     transform: translateX(75px);
-    cursor: pointer;
-    transition: opacity 0.15s;
-
-    &:hover {
-        opacity: .7;
-    }
-`
-
-export const DeleteIcon = styled.img`
-    width: auto;
-    height: 20px;
 `
 
 export const InputImgContainer = styled.div`

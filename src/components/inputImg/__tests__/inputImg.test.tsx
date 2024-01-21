@@ -51,9 +51,9 @@ describe('<InputImg />', () => {
   test("should call onFileRemove" , () => {
     render(setup({ ...defaultProps, file: feedTest.img }))
 
-    const deleteButton = screen.getByTestId("delete-button");
+    const removeImg = screen.getByTestId("remove-img");
 
-    fireEvent.click(deleteButton)
+    fireEvent.click(removeImg)
 
     expect(defaultProps.onFileRemove).toHaveBeenCalled()
   })

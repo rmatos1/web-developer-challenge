@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { cardBase } from "../styledComponents";
+import { cardBase, DeleteButton } from "../styledComponents";
 import { MOBILE } from "../../constants";
 
 export const FeedsContainer = styled.div`
@@ -37,26 +37,11 @@ export const FeedCard = styled.div`
     }
 `
 
-export const DeleteButton = styled.button`
-    position: absolute;
-    cursor: pointer;
+export const DeleteFeed = styled.button`
+    ${DeleteButton};
     top: 12px;
     right: 12px;
-    background: transparent;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #c75524;
-    border: 1px solid #c75524;
-    transition: opacity 0.15s;
-
-    &:hover {
-        opacity: .7;
-    }
-
+    
     @media (max-width: ${MOBILE}) {
         top: 6px;
         right: 6px;
