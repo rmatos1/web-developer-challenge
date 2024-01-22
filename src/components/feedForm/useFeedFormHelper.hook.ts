@@ -82,7 +82,7 @@ export const useFeedFormHelper = (): IUseFeedFormHelper => {
         const updatedFeeds = [...feeds];
 
         updatedFeeds.push({
-            id: new Date().getTime().toString(),
+            id: new Date().getTime().toString() + btoa(name),
             img,
             name,
             msg

@@ -53,6 +53,7 @@ export const FeedTextContainer = styled.div`
     flex-direction: column;
     gap: 32px;
     padding-right: 16px;
+    overflow: hidden;
 
     @media (max-width: ${MOBILE}) {
         padding-right: 0;
