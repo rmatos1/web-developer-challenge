@@ -1,11 +1,11 @@
 import { StyledFileInput, ImgUploadedContainer, InputImgContainer, EmptyImgIcon, RemoveImg } from "./inputImg.styles";
-import { FeedImg, Icon } from "../styledComponents";
+import { FeedImg, Icon, StyledText } from "../styledComponents";
 import { icons } from "../../assets";
 import { useInputImgHelper, IInputImg } from "./useInputImgHelper";
 
-export const InputImg = ({ file, onFileChange, onFileRemove }: IInputImg) => {
+export const InputImg = ({ file, onFileChange, onFileRemove, fileUploadErrorMsg, setFileUploadErrorMsg }: IInputImg) => {
 
-    const { fileInputRef, onImgContainerClick } = useInputImgHelper();
+    const { fileInputRef, onImgContainerClick} = useInputImgHelper(setFileUploadErrorMsg);
 
     return(
         <>
@@ -37,6 +37,10 @@ export const InputImg = ({ file, onFileChange, onFileRemove }: IInputImg) => {
                         <InputImgContainer onClick={onImgContainerClick} data-testid="empty-img">
                             <EmptyImgIcon src={icons.emptyImg} alt="" />
                         </InputImgContainer>
+
+                        {
+                            fileUploadErrorMsg && <StyledText>{fileUploadErrorMsg}</StyledText>
+                        }
                     </>
                 )
             }

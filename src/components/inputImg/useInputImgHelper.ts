@@ -1,9 +1,11 @@
-import { ChangeEvent, RefObject, useRef } from "react";
+import { ChangeEvent, Dispatch, RefObject, SetStateAction, useRef } from "react";
 
 export interface IInputImg {
     file: string;
     onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onFileRemove: () => void;
+    fileUploadErrorMsg: string; 
+    setFileUploadErrorMsg:  Dispatch<SetStateAction<string>>;
 }
 
 interface IUseInputImgHelper {
@@ -11,16 +13,17 @@ interface IUseInputImgHelper {
     onImgContainerClick: () => void;
 }
 
-export const useInputImgHelper = (): IUseInputImgHelper => {
+export const useInputImgHelper = (setFileUploadErrorMsg: Dispatch<SetStateAction<string>>): IUseInputImgHelper => {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleImgContainerOnClick = () => {
+        setFileUploadErrorMsg("");
         fileInputRef.current?.click();
     }
 
     return {
         fileInputRef,
-        onImgContainerClick: handleImgContainerOnClick
+        onImgContainerClick: handleImgContainerOnClick,
     }
 }

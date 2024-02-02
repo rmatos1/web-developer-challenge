@@ -7,12 +7,14 @@ export const FeedForm = () => {
 
     const { 
         formData, 
-        isButtonDisabled, 
+        isValidData, 
         onInputChange, 
         onFileInputChange,
         onFormSubmit, 
         onEraseDataClick,
-        onImgRemove 
+        onImgRemove,
+        fileUploadErrorMsg, 
+        setFileUploadErrorMsg
     } = useFeedFormHelper();
 
     return(
@@ -22,6 +24,8 @@ export const FeedForm = () => {
                 file={formData.img}
                 onFileChange={onFileInputChange}
                 onFileRemove={onImgRemove}
+                fileUploadErrorMsg={fileUploadErrorMsg}
+                setFileUploadErrorMsg={setFileUploadErrorMsg}
             />
 
             <StyledInput 
@@ -44,7 +48,7 @@ export const FeedForm = () => {
 
                 <StyledLink onClick={onEraseDataClick} data-test="erase-data">Descartar</StyledLink>
 
-                <StyledButton $isDisabled={isButtonDisabled}>Publicar</StyledButton>
+                <StyledButton $isDisabled={!isValidData}>Publicar</StyledButton>
 
             </FormBottom>
 

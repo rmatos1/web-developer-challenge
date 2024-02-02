@@ -3,4 +3,5 @@ export interface IFeed {
     img: string;
     name: string;
     msg: string;
+    date?: Date;
 }

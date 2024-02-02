@@ -1,16 +1,18 @@
-import { useState, useEffect, ChangeEvent, FormEvent, useContext } from "react";
+import { useState, ChangeEvent, FormEvent, useContext, useMemo, Dispatch, SetStateAction } from "react";
 import { MIN_CHARS_NAME, MIN_CHARS_MSG } from "../../constants";
 import { IFeed } from "../../types";
 import { FeedsContext } from "../../context";
 
 interface IUseFeedFormHelper {
     formData: IFeed;
-    isButtonDisabled: boolean;
+    isValidData: boolean;
     onInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onFileInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onFormSubmit: (e: FormEvent<HTMLFormElement>) => void;
     onEraseDataClick: () => void;
     onImgRemove: () => void;
+    fileUploadErrorMsg: string; 
+    setFileUploadErrorMsg: Dispatch<SetStateAction<string>>;
 }
 
 export const useFeedFormHelper = (): IUseFeedFormHelper => {
@@ -22,16 +24,14 @@ export const useFeedFormHelper = (): IUseFeedFormHelper => {
         name: "",
         msg: ""
     });
-    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+    const [fileUploadErrorMsg, setFileUploadErrorMsg] = useState("")
 
-    useEffect(() => {
+    const isValidData = useMemo(() => {
 
         const isValidName = formData.name.length >= MIN_CHARS_NAME;
         const isValidMSg = formData.msg.length >= MIN_CHARS_MSG;
 
-        const isValidData = formData.img.length && isValidName && isValidMSg;
-
-        setIsButtonDisabled(!isValidData);
+        return !!formData.img.length && isValidName && isValidMSg;
 
     }, [formData])
 
@@ -56,10 +56,14 @@ export const useFeedFormHelper = (): IUseFeedFormHelper => {
         
                 const base64Img = reader.result as string;
 
-                setFormData((prevData) => ({
-                  ...prevData,
-                  img: base64Img
-                }));
+                if(base64Img.match(/data:image\//)) {
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        img: base64Img
+                    }));
+                } else {
+                    setFileUploadErrorMsg("Formato de arquivo inválido")
+                }
             };
 
             reader.readAsDataURL(files[0]);
@@ -81,11 +85,14 @@ export const useFeedFormHelper = (): IUseFeedFormHelper => {
 
         const updatedFeeds = [...feeds];
 
+        const date = new Date();
+
         updatedFeeds.push({
-            id: new Date().getTime().toString() + btoa(name),
+            id: date.getTime().toString() + btoa(name),
             img,
             name,
-            msg
+            msg,
+            date
         })
 
         setFeeds(updatedFeeds);
@@ -105,11 +112,13 @@ export const useFeedFormHelper = (): IUseFeedFormHelper => {
 
     return {
         formData,
-        isButtonDisabled,
+        isValidData,
         onInputChange: handleInputOnChange,
         onFileInputChange: handleFileInputOnChange,
         onFormSubmit: handleFormOnSubmit,
         onEraseDataClick: handleEraseDataOnClick,
-        onImgRemove: handleRemoveImgOnClick
+        onImgRemove: handleRemoveImgOnClick,
+        fileUploadErrorMsg, 
+        setFileUploadErrorMsg
     }
 }

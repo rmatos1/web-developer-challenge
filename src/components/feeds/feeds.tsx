@@ -6,7 +6,7 @@ import { icons } from "../../assets";
 
 export const Feeds = () => {
 
-    const { feeds, onDeleteFeed } = useFeedsHelper();
+    const { sortedFeeds, onDeleteFeed } = useFeedsHelper();
 
     return(
         <FeedsContainer>
@@ -14,10 +14,10 @@ export const Feeds = () => {
             <FeedSectionTitle>Feed</FeedSectionTitle>
 
             {
-                feeds.length ? (
+                sortedFeeds.length ? (
                     <FeedsList>
                         {
-                            feeds.map((feed: IFeed) => (
+                            sortedFeeds.reverse().map((feed: IFeed) => (
                                 <FeedCard key={feed.id} data-testid="feed-card">
 
                                     <DeleteFeed onClick={() => onDeleteFeed(feed.id || "")} data-testid="delete-feed">
@@ -44,7 +44,7 @@ export const Feeds = () => {
                     </FeedsList>
                 ) : (
                     <EmptyFeeds data-testid="empty-feeds">
-                        <StyledText>Não há feed adicionado neste momento. Você pode preencher o formulário e adicione o primeiro!</StyledText>
+                        <StyledText>Não há feed adicionado neste momento. Você pode preencher o formulário e adicionar o primeiro!</StyledText>
                     </EmptyFeeds>
                 )
             }
