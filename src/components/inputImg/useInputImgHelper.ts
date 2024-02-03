@@ -5,7 +5,7 @@ export interface IInputImg {
     onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onFileRemove: () => void;
     fileUploadErrorMsg: string; 
-    setFileUploadErrorMsg:  Dispatch<SetStateAction<string>>;
+    setFileUploadErrorMsg: Dispatch<SetStateAction<string>>;
 }
 
 interface IUseInputImgHelper {

@@ -8,6 +8,8 @@ const defaultProps = {
     file: "",
     onFileChange: jest.fn(),
     onFileRemove: jest.fn(),
+    fileUploadErrorMsg: "",
+    setFileUploadErrorMsg: jest.fn(),
 }
 
 const setup = (componentProps?: IInputImg): JSX.Element => {
@@ -20,12 +22,16 @@ const setup = (componentProps?: IInputImg): JSX.Element => {
 };
 
 describe('<InputImg />', () => {
-  test('should render the empty image container', () => {
+  test('should render the empty image container and call setFileUploadErrorMsg', () => {
     render(setup());
 
     const emptyImg = screen.getByTestId("empty-img");
 
     expect(emptyImg).toBeDefined()
+
+    fireEvent.click(emptyImg)
+
+    expect(defaultProps.setFileUploadErrorMsg).toHaveBeenCalled()
   });
 
   test('should call onFileChange', () => {
@@ -56,5 +62,16 @@ describe('<InputImg />', () => {
     fireEvent.click(removeImg)
 
     expect(defaultProps.onFileRemove).toHaveBeenCalled()
+  })
+
+  test("should render the specified error message" , () => {
+
+    const INVALID_FILE = "invalid file";
+
+    render(setup({ ...defaultProps, fileUploadErrorMsg: INVALID_FILE }))
+
+    const errorMsg = screen.getByText(INVALID_FILE);
+
+    expect(errorMsg).toBeDefined()
   })
 });
