@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { cardBase, DeleteButton } from "../styledComponents";
 import { MOBILE } from "../../constants";
 
@@ -25,6 +25,26 @@ export const FeedsList = styled.div`
     gap: 18px;
 `
 
+const expandFeed = keyframes`
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+`;
+
+const fadeOutFeed = keyframes`
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+`;
+
 export const FeedCard = styled.div`
     ${cardBase};
     position: relative;
@@ -34,6 +54,17 @@ export const FeedCard = styled.div`
     @media (max-width: ${MOBILE}) {
         gap: 18px;
         align-items: center;
+    }
+
+    &.new-feed {
+        &:first-child {
+            transform-origin: top;
+            animation: ${expandFeed} 0.4s ease;
+        }
+    }
+
+    &.deleted-feed {
+        animation: ${fadeOutFeed} 0.4s ease;
     }
 `
 

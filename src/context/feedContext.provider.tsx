@@ -25,7 +25,7 @@ export const FeedsContext = createContext<IFeedsContext>({
 export const FeedProvider = ({ children, customValue }: IFeedProvider) => {
 
     const [feeds, setFeeds] = useState<IFeed[]>([]);
-  
+
     return (
       <FeedsContext.Provider
         value={{ feeds, setFeeds, ...customValue }}

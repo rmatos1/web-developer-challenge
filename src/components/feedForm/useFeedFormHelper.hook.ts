@@ -85,14 +85,11 @@ export const useFeedFormHelper = (): IUseFeedFormHelper => {
 
         const updatedFeeds = [...feeds];
 
-        const date = new Date();
-
-        updatedFeeds.push({
-            id: date.getTime().toString() + btoa(name),
+        updatedFeeds.unshift({
+            id: new Date().getTime().toString() + btoa(name),
             img,
             name,
-            msg,
-            date
+            msg
         })
 
         setFeeds(updatedFeeds);

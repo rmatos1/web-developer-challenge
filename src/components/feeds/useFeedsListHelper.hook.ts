@@ -1,9 +1,9 @@
-import { useContext, useMemo } from "react";
+import { useContext, useState, useEffect } from "react";
 import { FeedsContext } from "../../context";
 import { IFeed } from "../../types";
 
 interface IUseFeedsHelper {
-    sortedFeeds: IFeed[];
+    feedsList: IFeed[];
     onDeleteFeed: (id: string) => void;
 }
 
@@ -11,28 +11,38 @@ export const useFeedsHelper = (): IUseFeedsHelper => {
 
     const { feeds, setFeeds } = useContext(FeedsContext)
 
-    const sortedFeeds = useMemo(() => {
+    const [feedsList, setFeedsList] = useState<IFeed[]>([]);
 
-        const sorted = [...feeds].sort((a, b) => {
-            if (a.date && b.date) {
-                return b.date.getTime() > a.date.getTime() ? -1 : 1;
-            }
-            return 0;
-        });
+    useEffect(() => {
 
-        return sorted;
+        const updatedFeeds = feeds.map(feed => {
 
+            const isOldFeed = feedsList.find(item => item.id === feed.id);
+
+            return { ...feed, status: !isOldFeed ? "new-feed" : "" }
+        })
+
+        setFeedsList(updatedFeeds);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [feeds])
-  
+
     const handleDeleteFeedOnClick = (id: string) => {
 
-        const updatedFeeds = feeds.filter((item: IFeed) => item.id !== id);
+        const updatedFeeds = feeds.map(feed => ({ ...feed, status: feed.id === id ? "deleted-feed" : "" }))
 
-        setFeeds(updatedFeeds);
+        setFeedsList(updatedFeeds);
+
+        setTimeout(() => {
+
+            const filteredFeeds = feeds.filter((item: IFeed) => item.id !== id);
+
+            setFeeds(filteredFeeds);
+
+        }, 350)
     }
 
     return {
-        sortedFeeds,
+        feedsList,
         onDeleteFeed: handleDeleteFeedOnClick
     }
 }

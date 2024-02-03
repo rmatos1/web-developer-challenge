@@ -6,7 +6,7 @@ import { icons } from "../../assets";
 
 export const Feeds = () => {
 
-    const { sortedFeeds, onDeleteFeed } = useFeedsHelper();
+    const { feedsList, onDeleteFeed } = useFeedsHelper();
 
     return(
         <FeedsContainer>
@@ -14,16 +14,20 @@ export const Feeds = () => {
             <FeedSectionTitle>Feed</FeedSectionTitle>
 
             {
-                sortedFeeds.length ? (
+                feedsList.length ? (
                     <FeedsList>
                         {
-                            sortedFeeds.reverse().map((feed: IFeed) => (
-                                <FeedCard key={feed.id} data-testid="feed-card">
+                            feedsList.reverse().map((feed: IFeed) => (
+                                <FeedCard key={feed.id} data-testid="feed-card" className={feed.status}>
 
-                                    <DeleteFeed onClick={() => onDeleteFeed(feed.id || "")} data-testid="delete-feed">
-                                        <Icon alt="delete-feed" src={icons.deleteFeed} />
-                                    </DeleteFeed>
-
+                                    {
+                                        feed.status !== "deleted-feed" && (
+                                            <DeleteFeed onClick={() => onDeleteFeed(feed.id || "")} data-testid="delete-feed">
+                                                <Icon alt="delete-feed" src={icons.deleteFeed} />
+                                            </DeleteFeed>
+                                        )
+                                    }
+                                    
                                     <FeedImg  alt="" src={feed.img} />
 
                                     <FeedTextContainer>
