@@ -4,7 +4,7 @@ import { IFeed } from "../../types";
 
 interface IUseFeedsHelper {
     feedsList: IFeed[];
-    onDeleteFeed: (id: string) => void;
+    onDeleteFeed: (id: string, index: number) => void;
 }
 
 export const useFeedsHelper = (): IUseFeedsHelper => {
@@ -26,23 +26,19 @@ export const useFeedsHelper = (): IUseFeedsHelper => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [feeds])
 
-    const handleDeleteFeedOnClick = (id: string) => {
+    const handleDeleteFeedOnClick = async (id: string, index: number) => {
 
-        const updatedFeeds = feeds.map(feed => ({ ...feed, status: feed.id === id ? "deleted-feed" : "" }))
+        document.querySelector(`#feed${index}`)?.classList.add("deleted-feed");
 
-        setFeedsList(updatedFeeds);
+        await new Promise(resolve => setTimeout(resolve, 350));
 
-        setTimeout(() => {
+        const filteredFeeds = feeds.filter((item: IFeed) => item.id !== id);
 
-            const filteredFeeds = feeds.filter((item: IFeed) => item.id !== id);
-
-            setFeeds(filteredFeeds);
-
-        }, 350)
+        setFeeds(filteredFeeds);
     }
 
     return {
         feedsList,
-        onDeleteFeed: handleDeleteFeedOnClick
+        onDeleteFeed: handleDeleteFeedOnClick,
     }
 }

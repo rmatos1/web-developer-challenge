@@ -1,5 +1,5 @@
 import { describe, test } from '@jest/globals';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Feeds } from '../feeds';
 import { TestComponent } from '../../testComponent';
 import { feedTest } from '../../../constants';
@@ -36,13 +36,15 @@ describe('<Feeds />', () => {
     expect(feedCards.length).toBe(1);
   });
 
-  test('should call setFeeds on click', () => {
+  test('should call setFeeds on click', async () => {
     render(setup({ ...defaultFeedsContextValue, feeds: [feedTest] }));
 
     const deleteFeed = screen.getAllByTestId('delete-feed');
 
     fireEvent.click(deleteFeed[0]);
 
-    expect(defaultFeedsContextValue.setFeeds).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(defaultFeedsContextValue.setFeeds).toHaveBeenCalled();
+    });
   });
 });

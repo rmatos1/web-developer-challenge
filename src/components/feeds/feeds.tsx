@@ -17,12 +17,12 @@ export const Feeds = () => {
                 feedsList.length ? (
                     <FeedsList>
                         {
-                            feedsList.reverse().map((feed: IFeed) => (
-                                <FeedCard key={feed.id} data-testid="feed-card" className={feed.status}>
+                            feedsList.reverse().map((feed: IFeed, index) => (
+                                <FeedCard key={feed.id} data-testid="feed-card" className={feed.status} id={`feed${index}`}>
 
                                     {
                                         feed.status !== "deleted-feed" && (
-                                            <DeleteFeed onClick={() => onDeleteFeed(feed.id || "")} data-testid="delete-feed">
+                                            <DeleteFeed onClick={() => onDeleteFeed(feed.id || "", index)} data-testid="delete-feed">
                                                 <Icon alt="delete-feed" src={icons.deleteFeed} />
                                             </DeleteFeed>
                                         )

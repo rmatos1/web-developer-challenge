@@ -57,10 +57,8 @@ export const FeedCard = styled.div`
     }
 
     &.new-feed {
-        &:first-child {
-            transform-origin: top;
-            animation: ${expandFeed} 0.4s ease;
-        }
+        transform-origin: top;
+        animation: ${expandFeed} 0.4s ease;
     }
 
     &.deleted-feed {
